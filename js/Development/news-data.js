@@ -161,8 +161,12 @@ export function getRealOrigin() {
     return window.location.origin + postFixCache;
 }
 
+const skipPaths = ['/GetMJpeg', '/H264'];
+
 export function setDevelopmentMessages() {
-    if (window.location.href.indexOf("MJpeg") > -1)
+    const currentPath = window.location.pathname;
+
+    if (skipPaths.some(path => currentPath.startsWith(path)) || document.querySelector('#control-layout-body'))
         return;
 
     Debug.WriteLine('verification.js/setDevelopmentMessages:... set dev messages');
